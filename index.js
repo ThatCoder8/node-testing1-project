@@ -121,7 +121,7 @@ class Car {
     this.tankSize = tankSize;
     this.mpg = mpg;
     this.tank = 0; // Car's tank starts empty
-    this.odometer = 0; // Car starts with 0 miles
+    this.mileage = 0; // Car starts with 0 miles
   }
 
   /**
@@ -153,44 +153,38 @@ class Car {
   /**
    * [Exercise 6C] Car.prototype.drive adds miles to the car
    * @param {number} distance - the distance we want the car to drive
-   * @returns {number} - the updated odometer reading
+   * @returns {number} - the actual distance driven
    */
   drive(distance) {
-    // Make sure we have a valid distance to drive
-    if (typeof distance !== 'number' || distance <= 0) {
-      return this.odometer;
-    }
-    
     // If tank is empty, can't drive
     if (this.tank <= 0) {
-      return this.odometer;
+      return 0;
     }
     
-    // Calculate how far the car can go with current fuel
+    // Calculate maximum distance possible with current fuel
     const maxDistance = this.tank * this.mpg;
     
     // The car will drive the shorter of desired distance or max possible distance
     const actualDistance = Math.min(distance, maxDistance);
     
-    // Calculate how much gas was used (gallons)
+    // Calculate gas used (in gallons)
     const gallonsUsed = actualDistance / this.mpg;
     
     // Update the tank by subtracting gas used
     this.tank -= gallonsUsed;
     
-    // Ensure tank doesn't go below zero (shouldn't happen with our calculations)
+    // Ensure tank doesn't go below zero (rounding errors)
     if (this.tank < 0) {
       this.tank = 0;
     }
     
-    // Update the odometer with distance traveled
-    this.odometer += actualDistance;
+    // Update the mileage with distance traveled
+    this.mileage += actualDistance;
     
-    // Return the updated odometer value
-    return this.odometer;
+    // Return the actual distance driven
+    return actualDistance;
   }
 }
-
 /**
  * [Exercise 7] isEvenNumberAsync checks if a number is even asynchronously
  * @param {number} num - the number to check
