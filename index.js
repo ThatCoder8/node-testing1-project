@@ -108,7 +108,6 @@ class Seasons {
     return currentSeason;
   }
 }
-
 class Car {
   /**
    * [Exercise 6A] Car creates a car object
@@ -153,12 +152,12 @@ class Car {
   /**
    * [Exercise 6C] Car.prototype.drive adds miles to the car
    * @param {number} distance - the distance we want the car to drive
-   * @returns {number} - the actual distance driven
+   * @returns {number} - the updated mileage reading
    */
   drive(distance) {
     // If tank is empty, can't drive
     if (this.tank <= 0) {
-      return 0;
+      return this.mileage; // Return current mileage if can't drive
     }
     
     // Calculate maximum distance possible with current fuel
@@ -171,22 +170,15 @@ class Car {
     const gallonsUsed = actualDistance / this.mpg;
     
     // Update the tank by subtracting gas used
-    this.tank -= gallonsUsed;
-    
-    // Ensure tank doesn't go below zero (rounding errors)
-    if (this.tank < 0) {
-      this.tank = 0;
-    }
+    this.tank = Math.max(0, this.tank - gallonsUsed);
     
     // Update the mileage with distance traveled
     this.mileage += actualDistance;
     
-    // Return the actual distance driven
-    return actualDistance;
+    // Return the updated mileage
+    return this.mileage;
   }
-}
-/**
- * [Exercise 7] isEvenNumberAsync checks if a number is even asynchronously
+} * [Exercise 7] isEvenNumberAsync checks if a number is even asynchronously
  * @param {number} num - the number to check
  * @returns {Promise<boolean>} - resolves to true if number is even, false otherwise
  */
