@@ -108,13 +108,14 @@ class Seasons {
     return currentSeason;
   }
 }
+
 class Car {
   /**
-    * [Exercise 6A] Car creates a car object
-    * @param {string} name - the name of the car
-    * @param {number} tankSize - capacity of the gas tank in gallons
-    * @param {number} mpg - miles the car can drive per gallon of gas
-    */
+   * [Exercise 6A] Car creates a car object
+   * @param {string} name - the name of the car
+   * @param {number} tankSize - capacity of the gas tank in gallons
+   * @param {number} mpg - miles the car can drive per gallon of gas
+   */
   constructor(name, tankSize, mpg) {
     this.name = name;
     this.tankSize = tankSize;
@@ -124,9 +125,9 @@ class Car {
   }
 
   /**
-    * [Exercise 6B] Car.prototype.fillTank fills the tank to capacity
-    * @returns {number} - the number of gallons required to fill the tank
-    */
+   * [Exercise 6B] Car.prototype.fillTank fills the tank to capacity
+   * @returns {number} - the number of gallons required to fill the tank
+   */
   fillTank() {
     const gallonsToFill = this.tankSize - this.tank;
     this.tank = this.tankSize;
@@ -134,10 +135,10 @@ class Car {
   }
 
   /**
-    * Refuels the car with specified gallons or fills the tank if no amount specified
-    * @param {number} gallons - gallons of gas to add (optional)
-    * @returns {number} - gallons added to the tank
-    */
+   * Refuels the car with specified gallons or fills the tank if no amount specified
+   * @param {number} gallons - gallons of gas to add (optional)
+   * @returns {number} - gallons added to the tank
+   */
   refuel(gallons) {
     if (gallons === undefined) {
       return this.fillTank();
@@ -150,10 +151,10 @@ class Car {
   }
 
   /**
-    * [Exercise 6C] Car.prototype.drive adds miles to the car
-    * @param {number} distance - the distance we want the car to drive
-    * @returns {number} - the updated odometer reading
-    */
+   * [Exercise 6C] Car.prototype.drive adds miles to the car
+   * @param {number} distance - the distance we want the car to drive
+   * @returns {number} - the updated odometer reading
+   */
   drive(distance) {
     // First, check if we have any gas
     if (this.tank <= 0) {
@@ -180,7 +181,8 @@ class Car {
     return this.odometer;
   }
 }
-}/**
+
+/**
  * [Exercise 7] isEvenNumberAsync checks if a number is even asynchronously
  * @param {number} num - the number to check
  * @returns {Promise<boolean>} - resolves to true if number is even, false otherwise
