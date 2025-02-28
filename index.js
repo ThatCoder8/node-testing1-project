@@ -121,7 +121,7 @@ class Car {
     this.tankSize = tankSize;
     this.mpg = mpg;
     this.tank = 0; // Car's tank starts empty
-    this.odometer = 0; // Car starts with 0 miles
+    this.mileage = 0; // Car starts with 0 miles (using mileage instead of odometer)
   }
 
   /**
@@ -153,12 +153,12 @@ class Car {
   /**
    * [Exercise 6C] Car.prototype.drive adds miles to the car
    * @param {number} distance - the distance we want the car to drive
-   * @returns {number} - the updated odometer reading
+   * @returns {number} - the actual distance driven
    */
   drive(distance) {
     // First, check if we have any gas
     if (this.tank <= 0) {
-      return this.odometer; // Can't drive without gas
+      return 0; // Can't drive without gas, return 0 distance
     }
     
     // Calculate maximum distance possible with current fuel
@@ -171,17 +171,15 @@ class Car {
     const gasUsed = actualDistance / this.mpg;
     
     // Update the fuel tank
-    this.tank -= gasUsed;
-    if (this.tank < 0) this.tank = 0; // Ensure tank doesn't go negative
+    this.tank = Math.max(0, this.tank - gasUsed);
     
-    // Update the odometer with the distance driven
-    this.odometer += actualDistance;
+    // Update the mileage with the distance driven
+    this.mileage += actualDistance;
     
-    // Return the updated odometer reading
-    return this.odometer;
+    // Return the actual distance driven
+    return actualDistance;
   }
 }
-
 /**
  * [Exercise 7] isEvenNumberAsync checks if a number is even asynchronously
  * @param {number} num - the number to check
