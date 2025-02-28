@@ -157,7 +157,7 @@ class Car {
   drive(distance) {
     // If tank is empty, can't drive
     if (this.tank <= 0) {
-      return this.mileage; // Return current mileage if can't drive
+      return 0; // Return 0 distance driven if tank is empty
     }
     
     // Calculate maximum distance possible with current fuel
@@ -175,10 +175,12 @@ class Car {
     // Update the mileage with distance traveled
     this.mileage += actualDistance;
     
-    // Return the updated mileage
-    return this.mileage;
+    // Return the actual distance driven during this call
+    return actualDistance;
   }
-} * [Exercise 7] isEvenNumberAsync checks if a number is even asynchronously
+} // End of Car class
+/**
+ * [Exercise 7] isEvenNumberAsync checks if a number is even asynchronously
  * @param {number} num - the number to check
  * @returns {Promise<boolean>} - resolves to true if number is even, false otherwise
  */
@@ -189,7 +191,6 @@ function isEvenNumberAsync(num) {
     }, 100);
   });
 }
-
 module.exports = {
   trimProperties,
   trimPropertiesMutation,
