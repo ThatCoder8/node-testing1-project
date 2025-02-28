@@ -108,6 +108,7 @@ class Seasons {
     return currentSeason;
   }
 }
+
 class Car {
   /**
    * [Exercise 6A] Car creates a car object
@@ -155,30 +156,42 @@ class Car {
    * @returns {number} - the updated odometer reading
    */
   drive(distance) {
-    // Safety check for invalid input
-    if (typeof distance !== 'number' || distance < 0) {
-      return this.odometer; // Return current odometer if invalid input
+    // Make sure we have a valid distance to drive
+    if (typeof distance !== 'number' || distance <= 0) {
+      return this.odometer;
     }
     
-    // Calculate maximum distance possible with current fuel
+    // If tank is empty, can't drive
+    if (this.tank <= 0) {
+      return this.odometer;
+    }
+    
+    // Calculate how far the car can go with current fuel
     const maxDistance = this.tank * this.mpg;
     
-    // Determine actual distance driven (limited by fuel)
+    // The car will drive the shorter of desired distance or max possible distance
     const actualDistance = Math.min(distance, maxDistance);
     
-    // Calculate gas used (in gallons)
-    const gasUsed = actualDistance / this.mpg;
+    // Calculate how much gas was used (gallons)
+    const gallonsUsed = actualDistance / this.mpg;
     
-    // Update the fuel tank
-    this.tank = Math.max(0, this.tank - gasUsed);
+    // Update the tank by subtracting gas used
+    this.tank -= gallonsUsed;
     
-    // Update the odometer with the distance driven
+    // Ensure tank doesn't go below zero (shouldn't happen with our calculations)
+    if (this.tank < 0) {
+      this.tank = 0;
+    }
+    
+    // Update the odometer with distance traveled
     this.odometer += actualDistance;
     
-    // Return the updated odometer reading
+    // Return the updated odometer value
     return this.odometer;
   }
-}}/**
+}
+
+/**
  * [Exercise 7] isEvenNumberAsync checks if a number is even asynchronously
  * @param {number} num - the number to check
  * @returns {Promise<boolean>} - resolves to true if number is even, false otherwise
@@ -200,3 +213,4 @@ module.exports = {
   Car,
   isEvenNumberAsync
 };
+
