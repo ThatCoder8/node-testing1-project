@@ -121,7 +121,7 @@ class Car {
     this.tankSize = tankSize;
     this.mpg = mpg;
     this.tank = 0; // Car's tank starts empty
-    this.odometer = 0; // Car starts with 0 miles (renamed from mileage to odometer)
+    this.odometer = 0; // Car starts with 0 miles
   }
 
   /**
@@ -135,7 +135,7 @@ class Car {
   }
 
   /**
-   * Alias for fillTank for compatibility with grading tests
+   * Alias for fillTank that can also add a specific amount
    * @param {number} gallons - gallons of gas to add (optional)
    * @returns {number} - gallons added to the tank
    */
@@ -153,21 +153,28 @@ class Car {
   /**
    * [Exercise 6C] Car.prototype.drive adds miles to the car
    * @param {number} distance - the distance we want the car to drive
-   * @returns {number} - the updated odometer reading (NOT the distance driven)
+   * @returns {number} - the updated odometer reading
    */
   drive(distance) {
-    // Calculate how far we can drive with current fuel
+    // Calculate maximum distance possible with current fuel
     const maxDistance = this.tank * this.mpg;
+    
+    // Determine actual distance driven (limited by fuel)
     const actualDistance = Math.min(distance, maxDistance);
     
-    // Update tank and odometer
-    this.tank = Math.max(0, this.tank - (actualDistance / this.mpg));
+    // Calculate gas used (in gallons)
+    const gasUsed = actualDistance / this.mpg;
+    
+    // Update the fuel tank
+    this.tank = Math.max(0, this.tank - gasUsed);
+    
+    // Update the odometer with the distance driven
     this.odometer += actualDistance;
     
+    // Return the updated odometer reading
     return this.odometer;
   }
 }
-
 /**
  * [Exercise 7] isEvenNumberAsync checks if a number is even asynchronously
  * @param {number} num - the number to check
