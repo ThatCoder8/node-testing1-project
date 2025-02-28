@@ -121,7 +121,7 @@ class Car {
     this.tankSize = tankSize;
     this.mpg = mpg;
     this.tank = 0; // Car's tank starts empty
-    this.odometer = 0; // Car starts with 0 miles
+    this.mileage = 0; // Car starts with 0 miles
   }
 
   /**
@@ -135,25 +135,9 @@ class Car {
   }
 
   /**
-   * Alias for fillTank that can also add a specific amount
-   * @param {number} gallons - gallons of gas to add (optional)
-   * @returns {number} - gallons added to the tank
-   */
-  refuel(gallons) {
-    if (gallons === undefined) {
-      return this.fillTank();
-    }
-    
-    const spaceInTank = this.tankSize - this.tank;
-    const gallonsToAdd = Math.min(gallons, spaceInTank);
-    this.tank += gallonsToAdd;
-    return gallonsToAdd;
-  }
-
-  /**
    * [Exercise 6C] Car.prototype.drive adds miles to the car
    * @param {number} distance - the distance we want the car to drive
-   * @returns {number} - the updated odometer reading
+   * @returns {number} - the actual distance driven (not the odometer)
    */
   drive(distance) {
     // Calculate maximum distance possible with current fuel
@@ -168,14 +152,13 @@ class Car {
     // Update the fuel tank
     this.tank = Math.max(0, this.tank - gasUsed);
     
-    // Update the odometer with the distance driven
-    this.odometer += actualDistance;
+    // Update the mileage with the distance driven
+    this.mileage += actualDistance;
     
-    // Return the updated odometer reading
-    return this.odometer;
+    // Return the actual distance driven
+    return actualDistance;
   }
-}
-/**
+}/**
  * [Exercise 7] isEvenNumberAsync checks if a number is even asynchronously
  * @param {number} num - the number to check
  * @returns {Promise<boolean>} - resolves to true if number is even, false otherwise
