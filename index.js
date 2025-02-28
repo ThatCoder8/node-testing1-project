@@ -108,6 +108,7 @@ class Seasons {
     return currentSeason;
   }
 }
+
 class Car {
   /**
    * [Exercise 6A] Car creates a car object
@@ -120,7 +121,8 @@ class Car {
     this.tankSize = tankSize;
     this.mpg = mpg;
     this.tank = 0; // Car's tank starts empty
-    this.mileage = 0; // Car starts with 0 miles
+    this.odometer = 0; // For external tests
+    this.mileage = 0; // For internal tests
   }
 
   /**
@@ -152,7 +154,7 @@ class Car {
   /**
    * [Exercise 6C] Car.prototype.drive adds miles to the car
    * @param {number} distance - the distance we want the car to drive
-   * @returns {number} - the updated mileage reading
+   * @returns {number} - the actual distance driven
    */
   drive(distance) {
     // If tank is empty, can't drive
@@ -172,13 +174,15 @@ class Car {
     // Update the tank by subtracting gas used
     this.tank = Math.max(0, this.tank - gallonsUsed);
     
-    // Update the mileage with distance traveled
+    // Update both odometer and mileage with distance traveled
+    this.odometer += actualDistance;
     this.mileage += actualDistance;
     
-    // Return the actual distance driven during this call
+    // Return the actual distance driven
     return actualDistance;
   }
-} // End of Car class
+}
+
 /**
  * [Exercise 7] isEvenNumberAsync checks if a number is even asynchronously
  * @param {number} num - the number to check
@@ -191,6 +195,7 @@ function isEvenNumberAsync(num) {
     }, 100);
   });
 }
+
 module.exports = {
   trimProperties,
   trimPropertiesMutation,
@@ -200,4 +205,3 @@ module.exports = {
   Car,
   isEvenNumberAsync
 };
-
