@@ -108,7 +108,6 @@ class Seasons {
     return currentSeason;
   }
 }
-
 class Car {
   /**
    * [Exercise 6A] Car creates a car object
@@ -121,8 +120,7 @@ class Car {
     this.tankSize = tankSize;
     this.mpg = mpg;
     this.tank = 0; // Car's tank starts empty
-
-    this.mileage = 0; // Car starts with 0 miles
+    this.odometer = 0; // Car starts with 0 miles
   }
 
   /**
@@ -154,15 +152,14 @@ class Car {
   /**
    * [Exercise 6C] Car.prototype.drive adds miles to the car
    * @param {number} distance - the distance we want the car to drive
-
-   * @returns {number} - the updated mileage reading
+   * @returns {number} - the updated odometer reading
    */
   drive(distance) {
-
-
-
-
-
+    // Safety check for invalid input
+    if (typeof distance !== 'number' || distance < 0) {
+      return this.odometer; // Return current odometer if invalid input
+    }
+    
     // Calculate maximum distance possible with current fuel
     const maxDistance = this.tank * this.mpg;
     
@@ -172,20 +169,16 @@ class Car {
     // Calculate gas used (in gallons)
     const gasUsed = actualDistance / this.mpg;
     
-
-    // Update the fuel tank (without going below 0)
+    // Update the fuel tank
     this.tank = Math.max(0, this.tank - gasUsed);
     
-    // Update the mileage with the distance driven
-    this.mileage += actualDistance;
+    // Update the odometer with the distance driven
+    this.odometer += actualDistance;
     
-
-
-    // Return the updated mileage reading
-    return this.mileage;
+    // Return the updated odometer reading
+    return this.odometer;
   }
-
-}/**
+}}/**
  * [Exercise 7] isEvenNumberAsync checks if a number is even asynchronously
  * @param {number} num - the number to check
  * @returns {Promise<boolean>} - resolves to true if number is even, false otherwise
